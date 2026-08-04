@@ -1,4 +1,3 @@
-
 /*
 NOTES:
 1. enPin uses PWM therefore uses analogWrite() .
@@ -20,11 +19,18 @@ Carbonara_DRV8874::Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin) 
 }
 
 void Carbonara_DRV8874::begin() {
+    // Inititalize the pins
     pinMode(enablePin, OUTPUT);
     pinMode(phasePin, OUTPUT);
     pinMode(sleepPin, OUTPUT);
 
     digitalWrite(sleepPin, HIGH); // Wake motor driver
+}
+
+void Carbonara_DRV8874::beginSensing() {
+    pinMode(faultPin, INPUT);
+    pinMode(iPropIPin, INPUT);
+    isSensingActive = true;
 }
 
 void Carbonara_DRV8874::FAILSAFE(bool enable) {
@@ -36,9 +42,15 @@ void Carbonara_DRV8874::set(float output) {
     float motorPower = constrainSetInputs(output);
     motorPower = Inverted ? -motorPower : motorPower;
 
-    // Normal operation code here
-    analogWrite(enablePin, abs(motorPower));
-    digitalWrite(phasePin, motorPower >= 0 ? HIGH : LOW);
+    if (motorPower == 0 && brakeMode) {
+        // Break mode operation code
+        analogWrite(enablePin, 255);
+        digitalWrite(phasePin, LOW);
+    } else {
+        // Normal operation code
+        analogWrite(enablePin, abs(motorPower));
+        digitalWrite(phasePin, motorPower >= 0 ? HIGH : LOW);
+    }
 }
 
 
@@ -47,8 +59,8 @@ void Carbonara_DRV8874::setInverted(bool isInverted) {
     Inverted = isInverted;
 }
 
-void Carbonara_DRV8874::setBrakeMode(bool isbrakeMode) {
-    brakeMode = isbrakeMode;
+void Carbonara_DRV8874::setBrakeMode(bool isBrakeMode) {
+    brakeMode = isBrakeMode;
 }
 
 
@@ -76,11 +88,19 @@ void Carbonara_DRV8874::configIpropIPin(int iPropIPin) {
 
 // --- Feedback Functions ---
 bool Carbonara_DRV8874::isFault() {
-    // Check for fault code here
-    return false; // Placeholder return value
+    if (isSensingActive) {
+        isFaultActive = digitalRead(faultPin);
+        return isFaultActive;
+    } else {
+        return false;
+    }
 }
 
 float Carbonara_DRV8874::getCurrent() {
-    // Get current code here
-    return 0.0f; // Placeholder return value
+    if (isSensingActive) {
+        motorCurrent = analogRead(iPropIPin);
+        return motorCurrent;
+    } else {
+        return 0.0f;
+    }
 }
