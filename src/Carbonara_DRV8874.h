@@ -1,6 +1,9 @@
+// Self Definition
 #ifndef CARBONARA_DRV8874_H
 #define CARBONARA_DRV8874_H
 
+// Dependenices
+#include <Arduino.h>
 #include <inttypes.h>
 
 class Carbonara_DRV8874 {
@@ -8,12 +11,13 @@ class Carbonara_DRV8874 {
         Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin);
         // -- Initialization Functions --
         void begin();
+        void beginSensing();
         void FAILSAFE(bool enable);
 
         // -- Motor Control Functions --
         void set(float output);
         void setInverted(bool isInverted);
-        void setBrakeMode(bool isbrakeMode);
+        void setBrakeMode(bool isBrakeMode);
 
         // -- Pin Configuration Pins -- 
         void configEnablePin(int enablePin);
@@ -33,12 +37,16 @@ class Carbonara_DRV8874 {
         int enablePin;
         int phasePin;
         int sleepPin;
-        int faultPin;
-        int iPropIPin;
+        // Advanced sensing pins
+        int faultPin = -1;
+        int iPropIPin = -1;
 
         // Motor Driver State Variables
         bool Inverted = false;
         bool brakeMode = false;
+        bool isSensingActive = false;
+        bool isFaultActive = false;
+        float motorCurrent = 0;
 };
 
 #endif
