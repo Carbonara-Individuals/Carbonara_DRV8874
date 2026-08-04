@@ -5,7 +5,7 @@
 
 class Carbonara_DRV8874 {
     public:
-        Carbonara_DRV8874(uint8_t enablePin, uint8_t phasePin, uint8_t sleepPin);
+        Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin);
         // -- Initialization Functions --
         void begin();
         void FAILSAFE(bool enable);
@@ -29,7 +29,16 @@ class Carbonara_DRV8874 {
         float getCurrent();
 
     private:
-        // Nothing here just yet...
+        // Pin Configuration Variables
+        int enablePin;
+        int phasePin;
+        int sleepPin;
+        int faultPin;
+        int iPropIPin;
+
+        // Motor Driver State Variables
+        bool Inverted = false;
+        bool brakeMode = false;
 };
 
 #endif
