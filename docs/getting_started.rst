@@ -48,3 +48,24 @@ Finally, we can now control the motor! We can do this by simply calling:
    motor.set(0.5);
 
 This allows to control the motor on a -1 to 1 scale where -1 is full speed backwards, 0 is stopped, and 1 is full speed forwards.
+
+Full Script
+-----------
+
+Now, if everything is done correctly, the full script should look like this:
+
+.. code-block:: cpp
+
+   #include <Carbonara_DRV8874.h>
+
+   Carbonara_DRV8874 myMotor(1, 2, 3); // These are placeholder pins!
+
+   void setup() {
+      myMotor.begin();
+   }
+
+   void loop() {
+      myMotor.set(0.5); // This will run the motor at half speed forwards
+   }
+
+Congratulations! You have successfully set up the library and are now able to control your motor. For more advanced features, check out the advance articles below! For a full reference guide, check out the :ref:`API Reference <api_reference>` section for more information!
