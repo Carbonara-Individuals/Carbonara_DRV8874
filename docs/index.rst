@@ -1,7 +1,7 @@
 Carbonara_DRV8874 Documentation
 ================================
 
-An Arduino library for simplifying control of the TI DRV8874 motor driver.
+Hello! Welcome to the Carbonara_DRV8874 library! Please go to the Getting Started section to learn how to set up this library!
 
 .. toctree::
    :maxdepth: 2
