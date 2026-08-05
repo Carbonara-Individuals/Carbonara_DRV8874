@@ -22,7 +22,7 @@ jobs:
     - name: Upload Zip to Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ${{ github.event.repository.name }}.zip
+        files: ${{ github.event.repository.name }}-${{ github.ref_name }}.zip
         tag_name: ${{ github.ref_name }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
