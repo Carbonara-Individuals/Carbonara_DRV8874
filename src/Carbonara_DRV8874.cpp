@@ -1,7 +1,9 @@
 /*
 NOTES:
-1. enPin uses PWM therefore uses analogWrite() .
-2. phasePin is on or off based so it uses digitalWrite().
+1. enPin uses PWM therefore uses analogWrite().
+2. phasePin & sleepPin is on or off based so it uses digitalWrite().
+3. faultPin uses is on or of therefore uses digitalRead().
+4. iPropIPin uses PWM therefore uses analogRead().
 */
 #include "Carbonara_DRV8874.h"
 
@@ -34,7 +36,11 @@ void Carbonara_DRV8874::beginSensing() {
 }
 
 void Carbonara_DRV8874::FAILSAFE(bool enable) {
-    // Failsafe code here
+    if (isSensingActive && enable && isFaultActive) {
+        digitalWrite(sleepPin, LOW);
+    } else {
+        digitalWrite(sleepPin, HIGH);
+    }
 }
 
 void Carbonara_DRV8874::set(float output) {
@@ -43,7 +49,7 @@ void Carbonara_DRV8874::set(float output) {
     motorPower = Inverted ? -motorPower : motorPower;
 
     if (motorPower == 0 && brakeMode) {
-        // Break mode operation code
+        // Brake mode operation code
         analogWrite(enablePin, 255);
         digitalWrite(phasePin, LOW);
     } else {
@@ -56,7 +62,7 @@ void Carbonara_DRV8874::set(float output) {
 
 // --- Motor Driver State Functions ---
 void Carbonara_DRV8874::setInverted(bool isInverted) {
-    Inverted = isInverted;
+    inverted = isInverted;
 }
 
 void Carbonara_DRV8874::setBrakeMode(bool isBrakeMode) {
@@ -89,7 +95,7 @@ void Carbonara_DRV8874::configIpropIPin(int iPropIPin) {
 // --- Feedback Functions ---
 bool Carbonara_DRV8874::isFault() {
     if (isSensingActive) {
-        isFaultActive = digitalRead(faultPin);
+        isFaultActive = !digitalRead(faultPin);
         return isFaultActive;
     } else {
         return false;
