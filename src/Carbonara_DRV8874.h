@@ -42,7 +42,7 @@ class Carbonara_DRV8874 {
         int iPropIPin = -1;
 
         // Motor Driver State Variables
-        bool Inverted = false;
+        bool inverted = false;
         bool brakeMode = false;
         bool isSensingActive = false;
         bool isFaultActive = false;
