@@ -10,7 +10,7 @@ Setup
 | 1. Go to the Arduino IDE and open the Library Manager (**Sketch** > **Include Library** > **Manage Libraries...**) 
 | 2. Search for "Carbonara_DRV8874" and click the **Install** button.
 | 3. Restart the Arduino IDE to ensure the library is properly loaded.
-| 4. Create a new sketch (File > New) and save it.
+| 4. Create a new sketch (**File** > **New**) and save it.
 
 Basics
 ------

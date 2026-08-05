@@ -7,6 +7,7 @@ Basic Motor
 -----------
 
 .. code-block:: cpp
+
     #include <Carbonara_DRV8874.h>
 
     // Define as much motors you want here: VVV
@@ -33,6 +34,7 @@ Motor Sensing
 -------------
 
 .. code-block:: cpp
+    
     #include <Carbonara_DRV8874.h>
 
     // Define as much motors you want here: VVV
