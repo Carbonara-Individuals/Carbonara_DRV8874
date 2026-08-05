@@ -7,7 +7,7 @@ Before we begin, make sure to have the `Arduino IDE <https://docs.arduino.cc/sof
 Setup
 -----
 
-| 1. Go to the Arduino IDE and open the Library Manager (Sketch > Include Library > Manage Libraries...) 
+| 1. Go to the Arduino IDE and open the Library Manager (**Sketch** > **Include Library** > **Manage Libraries...**) 
 | 2. Search for "Carbonara_DRV8874" and click the **Install** button.
 | 3. Restart the Arduino IDE to ensure the library is properly loaded.
 | 4. Create a new sketch (File > New) and save it.
@@ -24,7 +24,7 @@ With setup out of the way, let's get started with the basics. First, we are goin
 This gives us access to the library's functions and classes.
 
 .. note::
-   Make sure to include the library outside the setup() and loop() functions!
+   Make sure to include the library outside the :cpp:func:`setup()`and :cpp:func:`loop()` functions!
 
 Currently, our script does not know what pins are used or if a motor exists. So to solve that, we can define the pins and create a motor driver instance.
 
@@ -34,7 +34,7 @@ Currently, our script does not know what pins are used or if a motor exists. So 
 
 Within the parentheses, there are three required pins: **EN**, **PH**, and **SLEEP**. **EN** is the enable pin which allows for the motor to have variable speed. **PH** is the phase pin that allows for the motor to turn backwards or forwards. Lastly, the **SLEEP** pin is used to turn off and on the driver.
 
-Now with the motor driver instance defined, we can move to starting the motor. To do this, we need to call the :cpp:func:`begin();` function.
+Now with the motor driver instance defined, we can move to starting the motor. To do this, we need to call the :cpp:func:`begin` function.
 
 .. code-block:: cpp
 

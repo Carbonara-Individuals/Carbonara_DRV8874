@@ -7,5 +7,6 @@ Hello! Welcome to the Carbonara_DRV8874 library! Please go to the Getting Starte
    :maxdepth: 2
 
    getting_started
+   advanced_features
    examples
    api_reference

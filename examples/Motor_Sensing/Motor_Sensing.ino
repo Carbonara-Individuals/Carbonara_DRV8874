@@ -10,16 +10,11 @@ Carbonara_DRV8874 myMotor(1, 2, 3); // Replace these values with the pins you en
 
 void setup() {
   myMotor.begin(); // Initializes the motor
-
-  // Initializes advance sensing pins
-  // These arent necessary and the driver can run without them!
-  myMotor.configFaultPin(4);
-  myMotor.configIpropIPin(5);
+  myMotor.beginSensing(4, 5); // Initializes sensing pins (Must have sensing pins defined first!)
   /*
   4: Fault || Issue
   5. IpropI || Current (Must support ADC!)
   */
-  myMotor.beginSensing(); // Initializes sensing pins (Must have sensing pins defined first!)
   
 }
 
