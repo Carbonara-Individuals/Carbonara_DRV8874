@@ -1,0 +1,28 @@
+name: Package Code For Release
+
+on:
+  release:
+    types: [published] # Triggers automatically when you hit "Publish Release" on GitHub
+
+jobs:
+  upload-assets:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    # 1. Bring your repository code into the runner
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Zip the newly created folder
+    - name: Zip Release Folder
+      run: zip -r ${{ github.event.repository.name }}-${{ github.ref_name }}.zip src examples library.properties README.md LICENSE
+
+    # 3. Upload the zip directly into the GitHub Release page assets
+    - name: Upload Zip to Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ${{ github.event.repository.name }}.zip
+        tag_name: ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub
