@@ -88,6 +88,7 @@ One of the neat parts of this library/IC is the built in ability to sense issues
         .. important::
             Typically the returned value and value range is different based on microcontrollers, so please check what that is for your microcontroller!
 
+
 		**Example usage:**
 
 		::
