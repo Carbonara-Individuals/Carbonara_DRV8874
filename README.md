@@ -6,6 +6,9 @@ Carbonara Individuals' Arduino motor driver library for the DRV8874 for easy mot
 > [!IMPORTANT]
 > Go to the [documentation](https://carbonara-drv8874.readthedocs.io/en/latest/index.html) to learn more about this library!
 
+> [!NOTE]
+> This library is still being ironed out and is preparing for a full release. If you find any issues or areas of improvements, please create an [issue](https://github.com/Carbonara-Individuals/Carbonara_DRV8874/issues) and describe it!
+
 ## Contributors
 - [Turtlerock0010](https://github.com/Turtlerock0010) || Lead Maintainer
 - [quackadoodledooo](https://github.com/quackadoodledooo) || Maintainer
