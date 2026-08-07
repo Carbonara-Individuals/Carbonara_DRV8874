@@ -8,16 +8,16 @@ NOTES:
 #include "Carbonara_DRV8874.h"
 
 
-float constrainSetInputs(float &output) {
-    output = constrain(output, -1.0f, 1.0f);
-    output *= 255.0f;
-    return output;
-}
-
 Carbonara_DRV8874::Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin) {
     this->enablePin = enablePin;
     this->phasePin = phasePin;
     this->sleepPin = sleepPin;
+}
+
+float constrainSetInputs(float &output) {
+    float constrainedOutput = constrain(output, -1.0f, 1.0f);
+    constrainedOutput *= 255.0f;
+    return constrainedOutput;
 }
 
 void Carbonara_DRV8874::begin() {
@@ -29,10 +29,7 @@ void Carbonara_DRV8874::begin() {
     digitalWrite(sleepPin, HIGH); // Wake motor driver
 }
 
-void Carbonara_DRV8874::beginSensing(int faultPin, int iPropIPin) {
-    this->faultPin = faultPin;
-    this->iPropIPin = iPropIPin;
-    
+void Carbonara_DRV8874::beginSensing() {
     pinMode(faultPin, INPUT);
     pinMode(iPropIPin, INPUT);
     isSensingActive = true;

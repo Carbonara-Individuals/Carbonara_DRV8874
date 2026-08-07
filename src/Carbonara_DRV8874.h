@@ -33,6 +33,9 @@ class Carbonara_DRV8874 {
         float getCurrent();
 
     private:
+        // Private Functions
+        float constrainSetInputs(float &output);
+
         // Pin Configuration Variables
         int enablePin;
         int phasePin;
@@ -47,6 +50,9 @@ class Carbonara_DRV8874 {
         bool isSensingActive = false;
         bool isFaultActive = false;
         float motorCurrent = 0;
+
+        // Micelaneous Variables
+        float constrainedOutput;
 };
 
 #endif
