@@ -14,7 +14,7 @@ Carbonara_DRV8874::Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin) 
     this->sleepPin = sleepPin;
 }
 
-float constrainSetInputs(float &output) {
+float Carbonara_DRV8874::constrainSetInputs(float &output) {
     float constrainedOutput = constrain(output, -1.0f, 1.0f);
     constrainedOutput *= 255.0f;
     return constrainedOutput;
