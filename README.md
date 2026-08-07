@@ -1,5 +1,6 @@
 # Carbonara_DRV8874
 [![Arduino Lint](https://github.com/Carbonara-Individuals/Carbonara_DRV8874/actions/workflows/Arduino-Lint.yml/badge.svg)](https://github.com/Carbonara-Individuals/Carbonara_DRV8874/actions/workflows/Arduino-Lint.yml)
+[![Release Package](https://github.com/Carbonara-Individuals/Carbonara_DRV8874/actions/workflows/release.yml/badge.svg)](https://github.com/Carbonara-Individuals/Carbonara_DRV8874/actions/workflows/release.yml)
 [![Documentation Status](https://app.readthedocs.org/projects/carbonara-drv8874/badge/?version=latest)](https://carbonara-drv8874.readthedocs.io/) 
 
 <img width="400" height="400" alt="Team Carbonara Logo" src="https://github.com/user-attachments/assets/939df2dd-ec3e-4e89-afea-4b667bcac338" />
