@@ -29,7 +29,10 @@ void Carbonara_DRV8874::begin() {
     digitalWrite(sleepPin, HIGH); // Wake motor driver
 }
 
-void Carbonara_DRV8874::beginSensing() {
+void Carbonara_DRV8874::beginSensing(int faultPin, int iPropIPin) {
+    this->faultPin = faultPin;
+    this->iPropIPin = iPropIPin;
+    
     pinMode(faultPin, INPUT);
     pinMode(iPropIPin, INPUT);
     isSensingActive = true;
@@ -46,7 +49,7 @@ void Carbonara_DRV8874::FAILSAFE(bool enable) {
 void Carbonara_DRV8874::set(float output) {
     // Constrain and rescale the output range
     float motorPower = constrainSetInputs(output);
-    motorPower = Inverted ? -motorPower : motorPower;
+    motorPower = inverted ? -motorPower : motorPower;
 
     if (motorPower == 0 && brakeMode) {
         // Brake mode operation code

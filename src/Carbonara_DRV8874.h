@@ -11,7 +11,7 @@ class Carbonara_DRV8874 {
         Carbonara_DRV8874(int enablePin, int phasePin, int sleepPin);
         // -- Initialization Functions --
         void begin();
-        void beginSensing();
+        void beginSensing(int faultPin, int iPropIPin);
         void FAILSAFE(bool enable);
 
         // -- Motor Control Functions --
