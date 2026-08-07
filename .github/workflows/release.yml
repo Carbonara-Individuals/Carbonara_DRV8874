@@ -1,4 +1,4 @@
-name: Package Code For Release
+name: Package Release
 
 on:
   release:
