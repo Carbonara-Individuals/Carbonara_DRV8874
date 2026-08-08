@@ -1,0 +1,61 @@
+name: Compile Time Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Configure Arduino CLI
+        run: |
+          arduino-cli config init --overwrite
+          arduino-cli config set library.enable_unsafe_install true
+
+      - name: Cache ESP32 Core and Tools
+        id: cache-esp32
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.arduino15/packages/esp32
+            ~/.arduino15/package_esp32_index.json
+          key: ${{ runner.os }}-esp32-core-v3.0.0
+
+      - name: Install ESP32 Platform Core
+        if: steps.cache-esp32.outputs.cache-hit != 'true'
+        run: |
+          arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core install esp32:esp32 --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+
+      - name: Zip Release Folder
+        run: |
+          # Create a wrapper folder with the library name
+          mkdir -p ${{ github.event.repository.name }}
+          # Copy library files into the wrapper folder
+          cp -r src/ examples/ library.properties keywords.txt README.md ${{ github.event.repository.name }}/ 2>/dev/null || true
+          # Zip the wrapper folder
+          zip -r ${{ github.event.repository.name }}.zip MtN1-Lib/ -x "*.git*" "*.github*"
+          
+      - name: Install Project Dependencies
+        run: |
+
+          # Force CLI to update lib list
+          arduino-cli lib update-index
+          
+          # 1. Install standard public registry libraries
+          arduino-cli lib install "Arduino"
+          arduino-cli lib install "inttypes"
+          
+          arduino-cli lib install --zip-path ./${{ github.event.repository.name }}
+
+      - name: Verify and Compile Sketch
+        run: |
+          # Crucial: Ensure your repository name matches the exact folder name containing your main .ino file
+          arduino-cli compile --fqbn esp32:esp32:esp32s3 examples/Compile_Time_Checker/Compile_Time_Checker.ino
