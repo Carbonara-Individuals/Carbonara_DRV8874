@@ -39,11 +39,9 @@ jobs:
           # Create a wrapper folder with the library name
           mkdir -p ${{ github.event.repository.name }}
           # Copy library files into the wrapper folder
-          cp -r src/ examples/ library.properties keywords.txt README.md ${{ github.event.repository.name }}/ 2>/dev/null || true
-          # Zip the wrapper folder correctly
-          cd ${{ github.event.repository.name }}
-          zip -r ../${{ github.event.repository.name }}.zip . -x "*.git*" "*.github*"
-          cd ..
+          cp -r src/ examples/ library.properties README.md ${{ github.event.repository.name }}/ 2>/dev/null || true
+          # Zip the wrapper folder
+          zip -r ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}/ -x "*.git*" "*.github*"
           
       - name: Install Project Dependencies
         run: |
