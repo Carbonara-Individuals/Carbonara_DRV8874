@@ -50,8 +50,8 @@ jobs:
           arduino-cli lib update-index
           
           # 1. Install standard public registry libraries
-          arduino-cli lib install "Arduino"
-          arduino-cli lib install "inttypes"
+          # arduino-cli lib install "Arduino"
+          # arduino-cli lib install "inttypes"
           
           arduino-cli lib install --zip-path ./${{ github.event.repository.name }}
 
