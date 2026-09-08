@@ -81,16 +81,24 @@ jobs:
           set -euxo pipefail
           arduino-cli lib install --zip-path "./${LIB_NAME}.zip"
 
-      - name: Create blank verification sketch
+      - name: Create blank verification sketch (auto header)
         run: |
           set -euxo pipefail
+          HEADER="$(find src -maxdepth 1 -type f -name '*.h' | head -n 1 | xargs -n1 basename)"
+          if [ -z "${HEADER:-}" ]; then
+            echo "No header found in src/"
+            exit 1
+          fi
+      
           mkdir -p verify-sketch
-          cat > verify-sketch/verify-sketch.ino <<'EOF'
-          #include <MtN1.h>
-
+          cat > verify-sketch/verify-sketch.ino <<EOF
+          #include <${HEADER}>
+      
           void setup() {}
           void loop() {}
           EOF
+      
+          echo "Using header: ${HEADER}"
 
       - name: Compile blank verification sketch
         run: |
