@@ -39,6 +39,7 @@ jobs:
         run: |
           arduino-cli config init --overwrite
           arduino-cli config add board_manager.additional_urls "$ESP32_URL"
+          arduino-cli config set library.enable_unsafe_install true
 
       - name: Cache Arduino data
         uses: actions/cache@v4
